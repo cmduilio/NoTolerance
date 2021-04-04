@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
+#include "HealthSystem.h"
 #include "Hero.generated.h"
 
 UCLASS()
@@ -30,6 +31,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float FireRate;
 	FTimerHandle ShootingTimerHandle;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UHealthSystem* HealthSystem;
 	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

@@ -9,8 +9,11 @@ AHero::AHero()
 	PrimaryActorTick.bCanEverTick = true;
 
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
+	HealthSystem = CreateDefaultSubobject<UHealthSystem>("HealthSystem");
 	Camera->bUsePawnControlRotation = true;
 	Camera->SetupAttachment(GetRootComponent());
+
+	AddOwnedComponent(HealthSystem);
 }
 
 // Called when the game starts or when spawned
@@ -94,4 +97,6 @@ void AHero::Shoot()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("NO SHOOT!"));
 	}
+
+	HealthSystem->TakeDamage(1);
 }
