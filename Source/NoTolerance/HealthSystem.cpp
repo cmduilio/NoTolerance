@@ -32,3 +32,22 @@ void UHealthSystem::TickComponent(float DeltaTime, ELevelTick TickType, FActorCo
 	// ...
 }
 
+void UHealthSystem::Heal(float Amount)
+{
+	Health += Amount;
+}
+
+void UHealthSystem::TakeDamage(float Damage)
+{
+	Health -= Damage;
+
+	if(IsDead())
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Pepe!"));
+	}
+}
+
+bool UHealthSystem::IsDead()
+{
+	return Health <= 0;	
+}

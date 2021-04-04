@@ -25,6 +25,13 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float health;
+	float Health;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MaxHealth;
+
+	void TakeDamage(float Damage);
+	void Heal(float Amount);
+	bool IsDead();
 		
 };
