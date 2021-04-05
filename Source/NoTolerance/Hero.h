@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
 #include "HealthSystem.h"
+#include "Gun.h"
 #include "Hero.generated.h"
 
 UCLASS()
@@ -31,6 +32,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float FireRate;
 	FTimerHandle ShootingTimerHandle;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	AGun Gun;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UHealthSystem* HealthSystem;
@@ -48,4 +51,5 @@ public:
 	void StartShooting();
 	void StopShooting();
 	void Shoot();
+	void OnDamage(float Damage);
 };

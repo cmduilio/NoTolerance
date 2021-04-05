@@ -4,17 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "HealthSystem.generated.h"
+#include "WeaponComponent.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class NOTOLERANCE_API UHealthSystem : public UActorComponent
+class NOTOLERANCE_API UWeaponComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UHealthSystem();
+	UWeaponComponent();
 
 protected:
 	// Called when the game starts
@@ -24,13 +24,5 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	float Health;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MaxHealth;
-
-	void TakeDamage(float Damage);
-	void Heal(float Amount);
-	bool IsDead();
 		
 };
