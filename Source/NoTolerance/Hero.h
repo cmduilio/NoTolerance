@@ -6,7 +6,8 @@
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
 #include "HealthSystem.h"
-#include "Gun.h"
+#include "WeaponComponent.h"
+
 #include "Hero.generated.h"
 
 UCLASS()
@@ -33,13 +34,9 @@ public:
 	float FireRate;
 	FTimerHandle ShootingTimerHandle;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	AGun Gun;
-
+	class UWeaponComponent* WeaponComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UHealthSystem* HealthSystem;
-	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -50,6 +47,5 @@ public:
 	void RotatePitch(float value);
 	void StartShooting();
 	void StopShooting();
-	void Shoot();
 	void OnDamage(float Damage);
 };
