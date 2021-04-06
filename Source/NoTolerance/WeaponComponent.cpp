@@ -1,9 +1,5 @@
 #include "WeaponComponent.h"
-#include "Engine/World.h"
-#include "DrawDebugHelpers.h"
 #include "GunWeapon.h"
-#include "HealthSystem.h"
-
 // Sets default values for this component's properties
 UWeaponComponent::UWeaponComponent()
 {

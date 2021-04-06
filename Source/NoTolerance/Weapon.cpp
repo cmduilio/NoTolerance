@@ -1,14 +1,21 @@
 #include "Weapon.h"
 
-void UWeapon::Shoot()
+UWeapon::UWeapon()
+{
+	FireRate = 1;
+}
+
+void UWeapon::Shoot(AHero* Hero)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("NOT IMPLEMENTED!"));
 }
 
-void UWeapon::StartAttacking()
+void UWeapon::StartAttacking(AHero* Hero)
 {
+	ShootingDelegate = FTimerDelegate::CreateUObject( this, &UWeapon::Shoot, Hero);
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Attacking Weapon!"));
-	GetWorld()->GetTimerManager().SetTimer(ShootingTimerHandle, this, &UWeapon::Shoot, FireRate, true, 0);
+	//Shoot();
+	GetWorld()->GetTimerManager().SetTimer(ShootingTimerHandle, ShootingDelegate, FireRate, true, 0);
 	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("This is an on screen message!"));
 }
 

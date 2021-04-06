@@ -1,4 +1,7 @@
 #include "Hero.h"
+ 
+#include "InventorySystem.h"
+#include "Item.h"
 #include "Engine/World.h"
 
 // Sets default values
@@ -16,6 +19,9 @@ AHero::AHero()
 
 	WeaponComponent = CreateDefaultSubobject<UWeaponComponent>("WeaponComponent");
 	AddOwnedComponent(WeaponComponent);
+
+	InventorySystem = CreateDefaultSubobject<UInventorySystem>("InventorySystem");
+	AddOwnedComponent(InventorySystem);
 }
 
 // Called when the game starts or when spawned
@@ -64,7 +70,7 @@ void AHero::RotatePitch(float value)
 void AHero::StartShooting()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Shooting hero!"));
-	WeaponComponent->Weapon->StartAttacking();
+	WeaponComponent->Weapon->StartAttacking(this);
 }
 
 void AHero::StopShooting()
@@ -75,4 +81,9 @@ void AHero::StopShooting()
 void AHero::OnDamage(float Damage)
 {
 	HealthSystem->TakeDamage(Damage);
+}
+
+void AHero::UseItem(UItem* Item)
+{
+	Item->Use(this);
 }

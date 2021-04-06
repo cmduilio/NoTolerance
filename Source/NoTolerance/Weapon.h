@@ -12,12 +12,14 @@ class NOTOLERANCE_API UWeapon : public UObject
 	GENERATED_BODY()
 	
 public:
+	UWeapon();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float FireRate;
 
-	virtual void Shoot();
-	void StartAttacking();
+	virtual void Shoot(class AHero* Hero);
+	void StartAttacking(class AHero* Hero);
 	void StopAttacking();
 	FTimerHandle ShootingTimerHandle;
+	FTimerDelegate ShootingDelegate;
 };

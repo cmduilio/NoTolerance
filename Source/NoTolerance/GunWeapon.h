@@ -13,5 +13,5 @@ UCLASS()
 class NOTOLERANCE_API UGunWeapon : public UWeapon
 {
 	GENERATED_BODY()
-	virtual void Shoot() override;
+	virtual void Shoot(class AHero* Hero) override;
 };

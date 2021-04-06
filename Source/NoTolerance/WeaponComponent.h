@@ -1,10 +1,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Weapon.h"
 #include "Components/ActorComponent.h"
+#include "Weapon.h"
 #include "WeaponComponent.generated.h"
-
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class NOTOLERANCE_API UWeaponComponent : public UActorComponent
@@ -21,7 +20,7 @@ protected:
 
 public:
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Instanced)
 	UWeapon* Weapon;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int TagName;

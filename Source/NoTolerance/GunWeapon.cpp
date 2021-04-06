@@ -1,9 +1,12 @@
 #include "GunWeapon.h"
+#include "HealthSystem.h"
+#include "DrawDebugHelpers.h"
+#include "Hero.h"
 
-void UGunWeapon::Shoot()
+void UGunWeapon::Shoot(AHero* Hero)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Shooting GunWeapon!"));
-	/*
+	
 	FVector start = Hero->Camera->GetComponentLocation();
 	FVector end = start + (Hero->Camera->GetForwardVector() * 100000);
 	FHitResult hitInfo;
@@ -24,5 +27,6 @@ void UGunWeapon::Shoot()
 	}else
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("MISS!"));
-	}*/
+	}
+	
 }
