@@ -16,6 +16,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float FireRate;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Distance;
 
 	virtual void Shoot(class AHero* Hero);
 	void StartAttacking(class AHero* Hero);

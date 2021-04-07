@@ -3,12 +3,17 @@
 #include "DrawDebugHelpers.h"
 #include "Hero.h"
 
+UGunWeapon::UGunWeapon()
+{
+	Distance = 2000;
+}
+
 void UGunWeapon::Shoot(AHero* Hero)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Shooting GunWeapon!"));
 	
 	FVector start = Hero->Camera->GetComponentLocation();
-	FVector end = start + (Hero->Camera->GetForwardVector() * 100000);
+	FVector end = start + (Hero->Camera->GetForwardVector() * Distance);
 	FHitResult hitInfo;
 
 	//for(int i = 0; i < 7; i++){

@@ -27,12 +27,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UCameraComponent* Camera;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Speed;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float RotationSpeed;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float FireRate;
-	FTimerHandle ShootingTimerHandle;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UWeaponComponent* WeaponComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
