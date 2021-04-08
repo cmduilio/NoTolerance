@@ -3,7 +3,8 @@
 UWeapon::UWeapon()
 {
 	FireRate = 1;
-	Distance = 500;
+	Distance = 10000;
+	SpreadAngle = 0;
 }
 
 void UWeapon::Shoot(AHero* Hero)

@@ -18,6 +18,8 @@ public:
 	float FireRate;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Distance;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float SpreadAngle;
 
 	virtual void Shoot(class AHero* Hero);
 	void StartAttacking(class AHero* Hero);

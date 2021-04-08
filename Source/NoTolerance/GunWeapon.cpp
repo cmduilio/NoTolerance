@@ -2,23 +2,28 @@
 #include "HealthSystem.h"
 #include "DrawDebugHelpers.h"
 #include "Hero.h"
+#include "Math/UnrealMathUtility.h"
 
 UGunWeapon::UGunWeapon()
 {
-	Distance = 2000;
 }
 
 void UGunWeapon::Shoot(AHero* Hero)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Shooting GunWeapon!"));
+	float alfaY = FMath::DegreesToRadians(FMath::FRandRange(-1 * SpreadAngle, SpreadAngle));
+	float alfaZ = FMath::DegreesToRadians(FMath::FRandRange(-1 * SpreadAngle, SpreadAngle));
+	FVector DeltaY = Hero->Camera->GetUpVector() * (FMath::Tan(alfaY) * Distance);
+	FVector DeltaZ = Hero->Camera->GetRightVector() * (FMath::Tan(alfaZ) * Distance);
 	
 	FVector start = Hero->Camera->GetComponentLocation();
-	FVector end = start + (Hero->Camera->GetForwardVector() * Distance);
+	FVector end = start + (Hero->Camera->GetForwardVector() * Distance) + DeltaY + DeltaZ;
+	
 	FHitResult hitInfo;
 
 	//for(int i = 0; i < 7; i++){
 	bool hit = GetWorld()->LineTraceSingleByChannel(hitInfo, start, end, ECC_GameTraceChannel3);
-	DrawDebugLine(GetWorld(), start, end, FColor::Red, false, 3);
+	DrawDebugLine(GetWorld(), start, end, FColor::Red, false, 20.f);
 	if(hit && hitInfo.GetActor() != nullptr)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, hitInfo.GetActor()->GetName());
@@ -34,4 +39,5 @@ void UGunWeapon::Shoot(AHero* Hero)
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("MISS!"));
 	}
 	
+	GEngine->AddOnScreenDebugMessage(-1, 20.f, FColor::Red, "---------------------");
 }
