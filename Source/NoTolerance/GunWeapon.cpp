@@ -10,7 +10,6 @@ UGunWeapon::UGunWeapon()
 
 void UGunWeapon::Shoot(AHero* Hero)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Shooting GunWeapon!"));
 	float alfaY = FMath::DegreesToRadians(FMath::FRandRange(-1 * SpreadAngle, SpreadAngle));
 	float alfaZ = FMath::DegreesToRadians(FMath::FRandRange(-1 * SpreadAngle, SpreadAngle));
 	FVector DeltaY = Hero->Camera->GetUpVector() * (FMath::Tan(alfaY) * Distance);
@@ -38,6 +37,4 @@ void UGunWeapon::Shoot(AHero* Hero)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("MISS!"));
 	}
-	
-	GEngine->AddOnScreenDebugMessage(-1, 20.f, FColor::Red, "---------------------");
 }

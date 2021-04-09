@@ -47,4 +47,5 @@ public:
 	void OnDamage(float Damage);
 
 	void UseItem(class UItem* Item);
+	void UseSelectedItem();
 };

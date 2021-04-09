@@ -28,6 +28,6 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnInventoryUpdate OnInventoryUpdate;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Instanced)
 	TArray<class UItem*> Items;
 };

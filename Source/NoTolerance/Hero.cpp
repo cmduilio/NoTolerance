@@ -41,6 +41,7 @@ void AHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("Turn", this, &AHero::RotateYaw);
 	PlayerInputComponent->BindAxis("Look", this, &AHero::RotatePitch);
 	
+	PlayerInputComponent->BindAction("Item", IE_Pressed, this, &AHero::UseSelectedItem);
 	
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AHero::StartShooting);
 	PlayerInputComponent->BindAction("Fire", IE_Released, this, &AHero::StopShooting);
@@ -86,4 +87,13 @@ void AHero::OnDamage(float Damage)
 void AHero::UseItem(UItem* Item)
 {
 	Item->Use(this);
+}
+
+void AHero::UseSelectedItem()
+{
+	if(InventorySystem->Items.Num() > 0)
+	{
+		InventorySystem->Items[0]->Use(this);
+		InventorySystem->RemoveItem(InventorySystem->Items[0]);
+	}
 }
