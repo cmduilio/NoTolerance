@@ -24,6 +24,6 @@ public:
 	UItem* Item;
 
 	UFUNCTION(BlueprintCallable)
-	void OnPickup(AHero* Hero);
+	virtual void OnPickup(AHero* Hero);
 	
 };

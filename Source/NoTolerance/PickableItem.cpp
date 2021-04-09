@@ -22,14 +22,5 @@ void APickableItem::BeginPlay()
 
 void APickableItem::OnPickup(AHero* Hero)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("ON PICKUP!"));
-	if(Item)
-	{
-		
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Using Item!"));
-		Item->Use(Hero);
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::SanitizeFloat(Hero->HealthSystem->Health));
-		Destroy();
-	}
 }
 
