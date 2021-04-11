@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PickableItem.h"
-#include "HealingPickableItem.generated.h"
+#include "PickableItemActor.h"
+#include "HealingPickableItemActor.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class NOTOLERANCE_API AHealingPickableItem : public APickableItem
+class NOTOLERANCE_API AHealingPickableItemActor : public APickableItemActor
 {
 	GENERATED_BODY()
 

@@ -34,6 +34,7 @@ public:
 	class UHealthSystem* HealthSystem;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UInventorySystem* InventorySystem;
+	
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -44,8 +45,11 @@ public:
 	void RotatePitch(float value);
 	void StartShooting();
 	void StopShooting();
-	void OnDamage(float Damage);
-
-	void UseItem(class UItem* Item);
+	void StartCrouching();
+	void StopCrouching();
 	void UseSelectedItem();
+	void ThrowItem();
+	
+	void OnDamage(float Damage);
+	void UseItem(class UItem* Item);
 };

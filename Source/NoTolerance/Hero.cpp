@@ -45,6 +45,11 @@ void AHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AHero::StartShooting);
 	PlayerInputComponent->BindAction("Fire", IE_Released, this, &AHero::StopShooting);
+	
+	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &AHero::StartCrouching);
+	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &AHero::StopCrouching);
+	
+	PlayerInputComponent->BindAction("Throw", IE_Pressed, this, &AHero::ThrowItem);
 }
 
 
@@ -70,13 +75,22 @@ void AHero::RotatePitch(float value)
 
 void AHero::StartShooting()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Shooting hero!"));
 	WeaponComponent->Weapon->StartAttacking(this);
 }
 
 void AHero::StopShooting()
 {
 	WeaponComponent->Weapon->StopAttacking();
+}
+
+void AHero::StartCrouching()
+{
+	Crouch();
+}
+
+void AHero::StopCrouching()
+{
+	UnCrouch();
 }
 
 void AHero::OnDamage(float Damage)
@@ -95,5 +109,14 @@ void AHero::UseSelectedItem()
 	{
 		InventorySystem->Items[0]->Use(this);
 		InventorySystem->RemoveItem(InventorySystem->Items[0]);
+	}
+}
+
+void AHero::ThrowItem()
+{
+	if(InventorySystem->ThrowableItem)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Throwing!"));
+		//InventorySystem->ThrowableItem
 	}
 }

@@ -30,4 +30,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Instanced)
 	TArray<class UItem*> Items;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Instanced)
+	class UExplosiveItem* ThrowableItem;
 };

@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "HealingPickableItem.h"
+#include "HealingPickableItemActor.h"
 
 #include "Hero.h"
 
-void AHealingPickableItem::OnPickup(AHero* Hero)
+void AHealingPickableItemActor::OnPickup(AHero* Hero)
 {
 	if(Item && Hero->HealthSystem->Health < Hero->HealthSystem->MaxHealth)
 	{
