@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "HealthSystem.h"
+#include "Component/HealthSystem.h"
 #include "Enemy.generated.h"
 
 UCLASS()

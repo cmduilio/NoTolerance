@@ -1,7 +1,9 @@
 #include "Hero.h"
- 
-#include "InventorySystem.h"
+
+#include "ExplosiveItem.h"
+#include "Component/InventorySystem.h"
 #include "Item.h"
+#include "Actor/ThrowableItemActor.h"
 #include "Engine/World.h"
 
 // Sets default values
@@ -117,6 +119,23 @@ void AHero::ThrowItem()
 	if(InventorySystem->ThrowableItem)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Throwing!"));
+		FVector SpawnLocation = Camera->GetComponentLocation() + Camera->GetRightVector() * 20;
+		FActorSpawnParameters SpawnParameters;
+		//AThrowableItemActor* grenade = CreateDefaultSubobject<AThrowableItemActor>("Grenade");
+		AThrowableItemActor* grenade = GetWorld()->SpawnActor<AThrowableItemActor>(
+			AThrowableItemActor::StaticClass(), SpawnLocation, Camera->GetComponentRotation(),
+			SpawnParameters);
+		
+		grenade->Item = InventorySystem->ThrowableItem;
+		//InventorySystem->ThrowableItem = nullptr;
+		grenade->StaticMeshComponent->SetStaticMesh(grenade->Item->PickupMesh);
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red,
+		                                 FString::SanitizeFloat(grenade->StaticMeshComponent->GetMass()));
+		
+		grenade->StaticMeshComponent->AddForce(Camera->GetForwardVector() * 200000 * grenade->StaticMeshComponent->GetMass());
+		//grenade->StaticMeshComponent->SetWorldLocation(Camera->GetComponentLocation());
+
+		//GetWorld()->SpawnActor<AActor>(Actor, Camera->GetComponentLocation(), Camera->GetComponentRotation(), SpawnParameters);
 		//InventorySystem->ThrowableItem
 	}
 }

@@ -1,5 +1,5 @@
 #include "GunWeapon.h"
-#include "HealthSystem.h"
+#include "Component/HealthSystem.h"
 #include "DrawDebugHelpers.h"
 #include "Hero.h"
 #include "Math/UnrealMathUtility.h"

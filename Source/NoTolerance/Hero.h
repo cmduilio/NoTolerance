@@ -5,8 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
-#include "HealthSystem.h"
-#include "WeaponComponent.h"
+#include "Component/HealthSystem.h"
+#include "Component/WeaponComponent.h"
 
 #include "Hero.generated.h"
 
