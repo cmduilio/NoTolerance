@@ -1,5 +1,6 @@
 #include "WeaponComponent.h"
-#include "../GunWeapon.h"
+#include "../Weapon/GunWeapon.h"
+
 // Sets default values for this component's properties
 UWeaponComponent::UWeaponComponent()
 {

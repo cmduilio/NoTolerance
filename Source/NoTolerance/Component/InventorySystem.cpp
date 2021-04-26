@@ -1,6 +1,6 @@
 #include "InventorySystem.h"
 
-#include "../Item.h"
+#include "../Item/Item.h"
 
 // Sets default values for this component's properties
 UInventorySystem::UInventorySystem()

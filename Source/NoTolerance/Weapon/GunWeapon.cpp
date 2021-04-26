@@ -1,7 +1,7 @@
 #include "GunWeapon.h"
-#include "Component/HealthSystem.h"
+#include "../Component/HealthSystem.h"
 #include "DrawDebugHelpers.h"
-#include "Hero.h"
+#include "../Hero.h"
 #include "Math/UnrealMathUtility.h"
 
 UGunWeapon::UGunWeapon()

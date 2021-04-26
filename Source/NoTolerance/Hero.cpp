@@ -1,8 +1,8 @@
 #include "Hero.h"
 
-#include "ExplosiveItem.h"
+#include "Item/ExplosiveItem.h"
 #include "Component/InventorySystem.h"
-#include "Item.h"
+#include "Item/Item.h"
 #include "Actor/ThrowableItemActor.h"
 #include "Engine/World.h"
 

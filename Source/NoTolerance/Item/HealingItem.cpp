@@ -3,7 +3,7 @@
 
 #include "HealingItem.h"
 
-#include "Hero.h"
+#include "../Hero.h"
 
 void UHealingItem::Use(AHero* Hero)
 {
