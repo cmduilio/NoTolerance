@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "Component/HealthSystem.h"
+#include "../Component/HealthComponent.h"
 #include "Enemy.generated.h"
 
 UCLASS()
@@ -24,7 +24,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Speed;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UHealthSystem* HealthSystem;
+	class UHealthComponent* HealthComponent;
 	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
@@ -10,15 +10,15 @@ class NOTOLERANCE_API UWeaponComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+	public:	
 	// Sets default values for this component's properties
 	UWeaponComponent();
 
-protected:
+	protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:
+	public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Instanced)
 	UWeapon* Weapon;

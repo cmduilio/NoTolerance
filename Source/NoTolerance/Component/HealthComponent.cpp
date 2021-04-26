@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "HealthSystem.h"
+#include "HealthComponent.h"
 
 // Sets default values for this component's properties
-UHealthSystem::UHealthSystem()
+UHealthComponent::UHealthComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -13,7 +13,7 @@ UHealthSystem::UHealthSystem()
 
 
 // Called when the game starts
-void UHealthSystem::BeginPlay()
+void UHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	Health = MaxHealth; 
@@ -21,19 +21,19 @@ void UHealthSystem::BeginPlay()
 
 
 // Called every frame
-void UHealthSystem::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
 }
 
-void UHealthSystem::Heal(float Amount)
+void UHealthComponent::Heal(float Amount)
 {
 	Health += Amount;
 }
 
-void UHealthSystem::TakeDamage(float Damage)
+void UHealthComponent::TakeDamage(float Damage)
 {
 	Health -= Damage;
 
@@ -43,7 +43,7 @@ void UHealthSystem::TakeDamage(float Damage)
 	}
 }
 
-bool UHealthSystem::IsDead()
+bool UHealthComponent::IsDead()
 {
 	return Health <= 0;	
 }

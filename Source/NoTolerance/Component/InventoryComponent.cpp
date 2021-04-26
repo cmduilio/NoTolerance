@@ -1,9 +1,9 @@
-#include "InventorySystem.h"
+#include "InventoryComponent.h"
 
 #include "../Item/Item.h"
 
 // Sets default values for this component's properties
-UInventorySystem::UInventorySystem()
+UInventoryComponent::UInventoryComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -12,12 +12,12 @@ UInventorySystem::UInventorySystem()
 	Capacity = 20;
 }
 
-void UInventorySystem::BeginPlay()
+void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
-void UInventorySystem::RemoveItem(UItem* Item)
+void UInventoryComponent::RemoveItem(UItem* Item)
 {
 	if(Item)
 	{
@@ -27,7 +27,7 @@ void UInventorySystem::RemoveItem(UItem* Item)
 	}
 }
 
-void UInventorySystem::AddItem(UItem* Item)
+void UInventoryComponent::AddItem(UItem* Item)
 {
 	if (Item && Items.Num() < Capacity){
 		Item->OwningInventory = this;

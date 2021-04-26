@@ -5,8 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
-#include "Component/HealthSystem.h"
-#include "Component/WeaponComponent.h"
+#include "../Component/HealthComponent.h"
+#include "../Component/WeaponComponent.h"
 
 #include "Hero.generated.h"
 
@@ -31,9 +31,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UWeaponComponent* WeaponComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UHealthSystem* HealthSystem;
+	class UHealthComponent* HealthComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UInventorySystem* InventorySystem;
+	class UInventoryComponent* InventoryComponent;
 	
 
 	// Called to bind functionality to input

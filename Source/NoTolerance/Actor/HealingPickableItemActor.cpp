@@ -3,11 +3,11 @@
 
 #include "HealingPickableItemActor.h"
 
-#include "../Hero.h"
+#include "../Hero/Hero.h"
 
 void AHealingPickableItemActor::OnPickup(AHero* Hero)
 {
-	if(Item && Hero->HealthSystem->Health < Hero->HealthSystem->MaxHealth)
+	if(Item && Hero->HealthComponent->Health < Hero->HealthComponent->MaxHealth)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Using Item!"));
 		Item->Use(Hero);

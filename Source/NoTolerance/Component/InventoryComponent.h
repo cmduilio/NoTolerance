@@ -4,18 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "InventorySystem.generated.h"
+#include "InventoryComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventoryUpdate);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class NOTOLERANCE_API UInventorySystem : public UActorComponent
+class NOTOLERANCE_API UInventoryComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UInventorySystem();
+	UInventoryComponent();
 
 	virtual void BeginPlay() override;
 

@@ -29,7 +29,7 @@ public:
 	FText Description;
 
 	UPROPERTY()
-	class UInventorySystem* OwningInventory;
+	class UInventoryComponent* OwningInventory;
 	
 	virtual void Use(class AHero* Hero) PURE_VIRTUAL(UItem,);
 	

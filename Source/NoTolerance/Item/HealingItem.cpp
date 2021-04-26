@@ -3,9 +3,9 @@
 
 #include "HealingItem.h"
 
-#include "../Hero.h"
+#include "../Hero/Hero.h"
 
 void UHealingItem::Use(AHero* Hero)
 {
-	Hero->HealthSystem->Heal(HealAmount);
+	Hero->HealthComponent->Heal(HealAmount);
 }

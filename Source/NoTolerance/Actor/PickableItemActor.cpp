@@ -3,7 +3,7 @@
 
 #include "PickableItemActor.h"
 
-#include "../Hero.h"
+#include "../Hero/Hero.h"
 
 // Sets default values
 APickableItemActor::APickableItemActor()

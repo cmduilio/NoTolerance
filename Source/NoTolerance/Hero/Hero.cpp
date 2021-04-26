@@ -1,9 +1,9 @@
 #include "Hero.h"
 
-#include "Item/ExplosiveItem.h"
-#include "Component/InventorySystem.h"
-#include "Item/Item.h"
-#include "Actor/ThrowableItemActor.h"
+#include "../Item/ExplosiveItem.h"
+#include "../Component/InventoryComponent.h"
+#include "../Item/Item.h"
+#include "../Actor/ThrowableItemActor.h"
 #include "Engine/World.h"
 
 // Sets default values
@@ -16,14 +16,14 @@ AHero::AHero()
 	Camera->bUsePawnControlRotation = true;
 	Camera->SetupAttachment(GetRootComponent());
 
-	HealthSystem = CreateDefaultSubobject<UHealthSystem>("HealthSystem");
-	AddOwnedComponent(HealthSystem);
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>("HealthComponent");
+	AddOwnedComponent(HealthComponent);
 
 	WeaponComponent = CreateDefaultSubobject<UWeaponComponent>("WeaponComponent");
 	AddOwnedComponent(WeaponComponent);
 
-	InventorySystem = CreateDefaultSubobject<UInventorySystem>("InventorySystem");
-	AddOwnedComponent(InventorySystem);
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>("InventoryComponent");
+	AddOwnedComponent(InventoryComponent);
 }
 
 // Called when the game starts or when spawned
@@ -97,7 +97,7 @@ void AHero::StopCrouching()
 
 void AHero::OnDamage(float Damage)
 {
-	HealthSystem->TakeDamage(Damage);
+	HealthComponent->TakeDamage(Damage);
 }
 
 void AHero::UseItem(UItem* Item)
@@ -107,16 +107,16 @@ void AHero::UseItem(UItem* Item)
 
 void AHero::UseSelectedItem()
 {
-	if(InventorySystem->Items.Num() > 0)
+	if(InventoryComponent->Items.Num() > 0)
 	{
-		InventorySystem->Items[0]->Use(this);
-		InventorySystem->RemoveItem(InventorySystem->Items[0]);
+		InventoryComponent->Items[0]->Use(this);
+		InventoryComponent->RemoveItem(InventoryComponent->Items[0]);
 	}
 }
 
 void AHero::ThrowItem()
 {
-	if(InventorySystem->ThrowableItem)
+	if(InventoryComponent->ThrowableItem)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Throwing!"));
 		FVector SpawnLocation = Camera->GetComponentLocation() + Camera->GetRightVector() * 20;
@@ -126,8 +126,8 @@ void AHero::ThrowItem()
 			AThrowableItemActor::StaticClass(), SpawnLocation, Camera->GetComponentRotation(),
 			SpawnParameters);
 		
-		grenade->Item = InventorySystem->ThrowableItem;
-		//InventorySystem->ThrowableItem = nullptr;
+		grenade->Item = InventoryComponent->ThrowableItem;
+		//InventoryComponent->ThrowableItem = nullptr;
 		grenade->StaticMeshComponent->SetStaticMesh(grenade->Item->PickupMesh);
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red,
 		                                 FString::SanitizeFloat(grenade->StaticMeshComponent->GetMass()));
@@ -136,6 +136,6 @@ void AHero::ThrowItem()
 		//grenade->StaticMeshComponent->SetWorldLocation(Camera->GetComponentLocation());
 
 		//GetWorld()->SpawnActor<AActor>(Actor, Camera->GetComponentLocation(), Camera->GetComponentRotation(), SpawnParameters);
-		//InventorySystem->ThrowableItem
+		//InventoryComponent->ThrowableItem
 	}
 }

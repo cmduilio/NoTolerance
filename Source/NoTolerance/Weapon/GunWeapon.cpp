@@ -1,7 +1,7 @@
 #include "GunWeapon.h"
-#include "../Component/HealthSystem.h"
+#include "../Component/HealthComponent.h"
 #include "DrawDebugHelpers.h"
-#include "../Hero.h"
+#include "../Hero/Hero.h"
 #include "Math/UnrealMathUtility.h"
 
 UGunWeapon::UGunWeapon()
@@ -27,11 +27,11 @@ void UGunWeapon::Shoot(AHero* Hero)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, hitInfo.GetActor()->GetName());
 
-		UHealthSystem* EnemyHealthSystem = hitInfo.GetActor()->FindComponentByClass<UHealthSystem>();
+		UHealthComponent* EnemyHealthComponent = hitInfo.GetActor()->FindComponentByClass<UHealthComponent>();
 		
-		if(EnemyHealthSystem)
+		if(EnemyHealthComponent)
 		{
-			EnemyHealthSystem->TakeDamage(1);
+			EnemyHealthComponent->TakeDamage(1);
 		}
 	}else
 	{
