@@ -119,20 +119,23 @@ void AHero::ThrowItem()
 	if(InventoryComponent->ThrowableItem)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Throwing!"));
-		FVector SpawnLocation = Camera->GetComponentLocation() + Camera->GetRightVector() * 20;
+		FVector SpawnLocation = Camera->GetComponentLocation() + Camera->GetForwardVector() * 20 + Camera->GetRightVector() * 20;
 		FActorSpawnParameters SpawnParameters;
 		//AThrowableItemActor* grenade = CreateDefaultSubobject<AThrowableItemActor>("Grenade");
 		AThrowableItemActor* grenade = GetWorld()->SpawnActor<AThrowableItemActor>(
 			AThrowableItemActor::StaticClass(), SpawnLocation, Camera->GetComponentRotation(),
 			SpawnParameters);
-		
-		grenade->Item = InventoryComponent->ThrowableItem;
+
+		grenade->Item = DuplicateObject(InventoryComponent->ThrowableItem, InventoryComponent->ThrowableItem->GetOuter());
+		//grenade->Item = InventoryComponent->ThrowableItem;
 		//InventoryComponent->ThrowableItem = nullptr;
 		grenade->StaticMeshComponent->SetStaticMesh(grenade->Item->PickupMesh);
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red,
-		                                 FString::SanitizeFloat(grenade->StaticMeshComponent->GetMass()));
 		
-		grenade->StaticMeshComponent->AddForce(Camera->GetForwardVector() * 200000 * grenade->StaticMeshComponent->GetMass());
+		grenade->StaticMeshComponent->AddForce(Camera->GetForwardVector() * 100000 * grenade->StaticMeshComponent->GetMass());
+
+		grenade->Item->Use(grenade);
+		//InventoryComponent->ThrowableItem = nullptr;
+		
 		//grenade->StaticMeshComponent->SetWorldLocation(Camera->GetComponentLocation());
 
 		//GetWorld()->SpawnActor<AActor>(Actor, Camera->GetComponentLocation(), Camera->GetComponentRotation(), SpawnParameters);

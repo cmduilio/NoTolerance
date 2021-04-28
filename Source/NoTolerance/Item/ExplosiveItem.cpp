@@ -3,6 +3,28 @@
 
 #include "ExplosiveItem.h"
 
+
 void UExplosiveItem::Use(AHero* Hero)
 {
+	//ExplosionDelegate = FTimerDelegate::CreateUObject( this, &UExplosiveItem::Explode, Hero);
+	//GetWorld()->GetTimerManager().SetTimer(ExplosionTimerHandle,this, &UExplosiveItem::Explode, 5, false);
 }
+void UExplosiveItem::Use(AActor* Container)
+{
+	ExplosionDelegate = FTimerDelegate::CreateUObject(this, &UExplosiveItem::Explode, Container);
+	GetWorld()->GetTimerManager().SetTimer(ExplosionTimerHandle, ExplosionDelegate, 2, false);
+}
+
+void UExplosiveItem::Explode(AActor* Container)
+{
+	FVector SpawnLocation = Container->GetActorLocation();
+	FActorSpawnParameters SpawnParameters;
+	
+	AExplosionActor* ExplosionActor = GetWorld()->SpawnActor<AExplosionActor>(
+		AExplosionActor::StaticClass(), SpawnLocation, FRotator(0,0,0),
+		SpawnParameters);
+	
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("BOOM!"));
+	Container->Destroy();
+}
+

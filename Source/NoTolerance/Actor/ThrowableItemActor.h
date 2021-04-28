@@ -7,6 +7,8 @@
 #include "../Item/Item.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/Actor.h"
+#include "NoTolerance/Item/ThrowableItem.h"
+
 #include "ThrowableItemActor.generated.h"
 
 UCLASS()
@@ -24,7 +26,7 @@ protected:
 
 public:	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Instanced)
-	UItem* Item;
+	UThrowableItem* Item;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class USphereComponent* SphereComponent;

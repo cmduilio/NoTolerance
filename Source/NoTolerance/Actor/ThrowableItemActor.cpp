@@ -9,15 +9,17 @@ AThrowableItemActor::AThrowableItemActor()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 	
-	SphereComponent = CreateDefaultSubobject<USphereComponent>("SphereComponent");
-	AddOwnedComponent(SphereComponent);
-	
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("StaticMeshComponent");
 	StaticMeshComponent->SetMobility(EComponentMobility::Movable);
 	StaticMeshComponent->SetVisibility(true, true);
 	StaticMeshComponent->SetSimulatePhysics(true);
 	StaticMeshComponent->SetCollisionProfileName(TEXT("PlayerShot"));
+
 	RootComponent = StaticMeshComponent;
+	
+	SphereComponent = CreateDefaultSubobject<USphereComponent>("SphereComponent");
+	SphereComponent->SetupAttachment(RootComponent);
+	
 	//AddOwnedComponent(StaticMeshComponent);
 
 }
