@@ -17,4 +17,8 @@ class NOTOLERANCE_API UThrowableItem : public UItem
 public:
 	virtual void Use(class AActor* Container ) PURE_VIRTUAL(UThrowableItem,);
 	virtual void Use(class AHero* Hero ) PURE_VIRTUAL(UItem,);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Radius;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Damage;
 };

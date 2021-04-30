@@ -2,6 +2,8 @@
 
 
 #include "ExplosionActor.h"
+
+#include "NoTolerance/Enemy/Enemy.h"
 #include "Runtime/Engine/Classes/Particles/ParticleSystemComponent.h"
 
 // Sets default values
@@ -27,13 +29,31 @@ AExplosionActor::AExplosionActor()
 void AExplosionActor::BeginPlay()
 {
 	Super::BeginPlay();
+	SetLifeSpan(3);
+}
 
-	RadialForceComponent->Radius = 300;
+void AExplosionActor::Initialize(float Radius, float Damage)
+{
+	RadialForceComponent->Radius = Radius;
 	RadialForceComponent->ImpulseStrength = 300000;
 	RadialForceComponent->ForceStrength = 1000;
 
-	RadialForceComponent->FireImpulse();
-	SetLifeSpan(3);
-	
-}
+	FVector Start = this->GetActorLocation();
+	FVector End = Start + (this->RadialForceComponent->GetForwardVector() * Radius) ;
+	FCollisionShape MySphere = FCollisionShape::MakeSphere(RadialForceComponent->Radius); // 5M Radius
+	TArray<FHitResult> OutResults;
+	GetWorld()->SweepMultiByChannel(OutResults, Start, End, FQuat::Identity, ECC_GameTraceChannel3, MySphere);
 
+	for(FHitResult hit : OutResults)
+	{
+		if(hit.GetActor() && Cast<AEnemy>(hit.GetActor()))
+		{
+			UHealthComponent* EnemyHealthComponent = hit.GetActor()->FindComponentByClass<UHealthComponent>();
+			if(EnemyHealthComponent)
+			{
+				EnemyHealthComponent->TakeDamage(Damage);
+			}
+		}
+	}
+	RadialForceComponent->FireImpulse();
+}

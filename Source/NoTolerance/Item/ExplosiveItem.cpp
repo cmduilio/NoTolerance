@@ -24,7 +24,8 @@ void UExplosiveItem::Explode(AActor* Container)
 		AExplosionActor::StaticClass(), SpawnLocation, FRotator(0,0,0),
 		SpawnParameters);
 	
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("BOOM!"));
+	ExplosionActor->Initialize(300, 10);
+	
 	Container->Destroy();
 }
 

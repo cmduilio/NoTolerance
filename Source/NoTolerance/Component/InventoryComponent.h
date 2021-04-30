@@ -32,5 +32,5 @@ public:
 	TArray<class UItem*> Items;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Instanced)
-	class UExplosiveItem* ThrowableItem;
+	class UThrowableItem* ThrowableItem;
 };

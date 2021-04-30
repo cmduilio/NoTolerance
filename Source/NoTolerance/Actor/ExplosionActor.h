@@ -28,4 +28,5 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UParticleSystemComponent* ParticleSystemComponent;
 
+	void Initialize(float Radius, float Damage);
 };
