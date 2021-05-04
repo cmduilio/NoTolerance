@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Item.h"
-#include "BulletItem.generated.h"
+#include "WeaponItem.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class NOTOLERANCE_API UBulletItem : public UItem
+class NOTOLERANCE_API UWeaponItem : public UItem
 {
 	GENERATED_BODY()
 	
