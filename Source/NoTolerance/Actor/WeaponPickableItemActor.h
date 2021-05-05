@@ -14,4 +14,6 @@ class NOTOLERANCE_API AWeaponPickableItemActor : public APickableItemActor
 {
 	GENERATED_BODY()
 	
+public:
+	virtual void OnPickup(AHero* Hero) override;
 };

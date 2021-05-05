@@ -19,10 +19,10 @@ public:
 	virtual void Shoot(class AHero* Hero) override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int MaxAmmo;
+	int MaxAmmo = 100;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int CurrentAmmo;
+	int CurrentAmmo = 100;
 
 	void AddAmmo(int Ammo);
 };
