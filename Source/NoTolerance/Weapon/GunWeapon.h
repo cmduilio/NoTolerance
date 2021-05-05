@@ -17,4 +17,12 @@ class NOTOLERANCE_API UGunWeapon : public UWeapon
 public:
 	UGunWeapon();
 	virtual void Shoot(class AHero* Hero) override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int MaxAmmo;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int CurrentAmmo;
+
+	void AddAmmo(int Ammo);
 };

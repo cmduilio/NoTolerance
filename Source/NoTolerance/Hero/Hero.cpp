@@ -118,7 +118,6 @@ void AHero::ThrowItem()
 {
 	if(InventoryComponent->ThrowableItem)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Throwing!"));
 		FVector SpawnLocation = Camera->GetComponentLocation() + Camera->GetForwardVector() * 20 + Camera->GetRightVector() * 20;
 		FActorSpawnParameters SpawnParameters;
 		//AThrowableItemActor* grenade = CreateDefaultSubobject<AThrowableItemActor>("Grenade");
