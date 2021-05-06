@@ -17,20 +17,22 @@ class NOTOLERANCE_API UItem : public UObject
 public:
 	UItem();
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText ActionText;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UStaticMesh* PickupMesh;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	class UTexture2D* Thumbnail;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText DisplayName;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (MultiLine = true))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (MultiLine = true))
 	FText Description;
 
 	UPROPERTY()
 	class UInventoryComponent* OwningInventory;
 	
 	virtual void Use(class AHero* Hero) PURE_VIRTUAL(UItem,);
+
+	bool Equals(FText Item);
 	
 };

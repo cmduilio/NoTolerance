@@ -38,12 +38,14 @@ void AHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+//	PlayerInputComponent->BindAxis("ChangeWeapon", this, &AHero::ChangeWeapon);
 	PlayerInputComponent->BindAxis("Vertical", this, &AHero::MoveForward);
 	PlayerInputComponent->BindAxis("Horizontal", this, &AHero::MoveRight);
 	PlayerInputComponent->BindAxis("Turn", this, &AHero::RotateYaw);
 	PlayerInputComponent->BindAxis("Look", this, &AHero::RotatePitch);
 	
 	PlayerInputComponent->BindAction("Item", IE_Pressed, this, &AHero::UseSelectedItem);
+	PlayerInputComponent->BindAction("NextWeapon", IE_Pressed, this, &AHero::ChangeWeapon);
 	
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AHero::StartShooting);
 	PlayerInputComponent->BindAction("Fire", IE_Released, this, &AHero::StopShooting);
@@ -75,14 +77,20 @@ void AHero::RotatePitch(float value)
 	AddControllerPitchInput(value * RotationSpeed * GetWorld()->GetDeltaSeconds());
 }
 
+void AHero::ChangeWeapon()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, TEXT("changing"));
+	WeaponComponent->ChangeWeapon(1);
+}
+
 void AHero::StartShooting()
 {
-	WeaponComponent->Weapon->StartAttacking(this);
+	WeaponComponent->GetCurrentWeapon()->StartAttacking(this);
 }
 
 void AHero::StopShooting()
 {
-	WeaponComponent->Weapon->StopAttacking();
+	WeaponComponent->GetCurrentWeapon()->StopAttacking();
 }
 
 void AHero::StartCrouching()

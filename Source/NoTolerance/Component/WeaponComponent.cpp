@@ -4,7 +4,6 @@
 // Sets default values for this component's properties
 UWeaponComponent::UWeaponComponent()
 {
-	Weapon = CreateDefaultSubobject<UGunWeapon>("Weapon");
 	TagName = 3;
 }
 
@@ -14,3 +13,32 @@ void UWeaponComponent::BeginPlay()
 {
 	Super::BeginPlay();
 }
+
+UWeapon* UWeaponComponent::FindWeapon(UWeaponItem* WeaponItem)
+{
+	bool Found = false;
+	int Index = 0;
+	while(Index < Weapons.Num() && !Found)
+	{
+		Found = WeaponItem->Equals(Weapons[Index]->DisplayName);
+		Index++;
+	}
+	
+	return Found ? Weapons[Index - 1] : nullptr;  
+}
+
+UWeapon* UWeaponComponent::GetCurrentWeapon()
+{
+	return Weapons[CurrentWeapon];
+}
+
+void UWeaponComponent::ChangeWeapon(int Value)
+{
+	CurrentWeapon = (CurrentWeapon + Value) % Weapons.Num();
+}
+
+void UWeaponComponent::AddWeapon(UWeapon* Weapon)
+{
+	Weapons.Add(Weapon);	
+}
+

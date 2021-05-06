@@ -9,3 +9,8 @@ UItem::UItem()
 	ActionText = FText::FromString("Action");
 	Description = FText::FromString("Description");
 }
+
+bool UItem::Equals(FText Item)
+{
+	return DisplayName.EqualTo(Item);
+}

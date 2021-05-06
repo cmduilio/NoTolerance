@@ -20,10 +20,13 @@ public:
 	float Distance;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float SpreadAngle;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText DisplayName;
 
 	virtual void Shoot(class AHero* Hero);
 	void StartAttacking(class AHero* Hero);
 	void StopAttacking();
 	FTimerHandle ShootingTimerHandle;
 	FTimerDelegate ShootingDelegate;
+	
 };

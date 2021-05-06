@@ -43,6 +43,7 @@ public:
 	void MoveRight(float value);
 	void RotateYaw(float value);
 	void RotatePitch(float value);
+	void ChangeWeapon();
 	void StartShooting();
 	void StopShooting();
 	void StartCrouching();
