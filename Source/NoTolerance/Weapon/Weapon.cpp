@@ -23,3 +23,7 @@ void UWeapon::StopAttacking()
 	GetWorld()->GetTimerManager().ClearTimer(ShootingTimerHandle);
 }
 
+bool UWeapon::Equals(UWeapon* Weapon)
+{
+	return DisplayName.EqualTo(Weapon->DisplayName);
+}

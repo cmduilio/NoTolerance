@@ -34,6 +34,8 @@ public:
 	class UHealthComponent* HealthComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UInventoryComponent* InventoryComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool IsSprinting;
 	
 
 	// Called to bind functionality to input
@@ -43,9 +45,12 @@ public:
 	void MoveRight(float value);
 	void RotateYaw(float value);
 	void RotatePitch(float value);
-	void ChangeWeapon();
+	void NextWeapon();
+	void PreviousWeapon();
 	void StartShooting();
 	void StopShooting();
+	void StartSprinting();
+	void StopSprinting();
 	void StartCrouching();
 	void StopCrouching();
 	void UseSelectedItem();

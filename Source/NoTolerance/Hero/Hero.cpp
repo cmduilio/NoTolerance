@@ -5,6 +5,7 @@
 #include "../Item/Item.h"
 #include "../Actor/ThrowableItemActor.h"
 #include "Engine/World.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 AHero::AHero()
@@ -38,17 +39,20 @@ void AHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-//	PlayerInputComponent->BindAxis("ChangeWeapon", this, &AHero::ChangeWeapon);
 	PlayerInputComponent->BindAxis("Vertical", this, &AHero::MoveForward);
 	PlayerInputComponent->BindAxis("Horizontal", this, &AHero::MoveRight);
 	PlayerInputComponent->BindAxis("Turn", this, &AHero::RotateYaw);
 	PlayerInputComponent->BindAxis("Look", this, &AHero::RotatePitch);
 	
 	PlayerInputComponent->BindAction("Item", IE_Pressed, this, &AHero::UseSelectedItem);
-	PlayerInputComponent->BindAction("NextWeapon", IE_Pressed, this, &AHero::ChangeWeapon);
+	PlayerInputComponent->BindAction("NextWeapon", IE_Pressed, this, &AHero::NextWeapon);
+	PlayerInputComponent->BindAction("PreviousWeapon", IE_Pressed, this, &AHero::PreviousWeapon);
 	
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AHero::StartShooting);
 	PlayerInputComponent->BindAction("Fire", IE_Released, this, &AHero::StopShooting);
+	
+	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &AHero::StartSprinting);
+	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &AHero::StopSprinting);
 	
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &AHero::StartCrouching);
 	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &AHero::StopCrouching);
@@ -77,10 +81,16 @@ void AHero::RotatePitch(float value)
 	AddControllerPitchInput(value * RotationSpeed * GetWorld()->GetDeltaSeconds());
 }
 
-void AHero::ChangeWeapon()
+void AHero::NextWeapon()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, TEXT("changing"));
 	WeaponComponent->ChangeWeapon(1);
+}
+
+void AHero::PreviousWeapon()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, TEXT("changing"));
+	WeaponComponent->ChangeWeapon(-1);
 }
 
 void AHero::StartShooting()
@@ -91,6 +101,18 @@ void AHero::StartShooting()
 void AHero::StopShooting()
 {
 	WeaponComponent->GetCurrentWeapon()->StopAttacking();
+}
+
+void AHero::StartSprinting()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 1200;
+	IsSprinting = true;
+}
+
+void AHero::StopSprinting()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 600;
+	IsSprinting = false;
 }
 
 void AHero::StartCrouching()

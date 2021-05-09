@@ -32,7 +32,5 @@ public:
 	class UInventoryComponent* OwningInventory;
 	
 	virtual void Use(class AHero* Hero) PURE_VIRTUAL(UItem,);
-
-	bool Equals(FText Item);
 	
 };

@@ -10,9 +10,9 @@ UGunWeapon::UGunWeapon()
 
 void UGunWeapon::Shoot(AHero* Hero)
 {
-	//for(int i = 0; i < 100; i++)
-	//{
-		if(CurrentAmmo > 0)
+	if(CurrentAmmo > 0)
+	{
+		for(int i = 0; i < Pellets; i++)
 		{
 			float alfaY = FMath::DegreesToRadians(FMath::FRandRange(-1 * SpreadAngle, SpreadAngle));
 			float alfaZ = FMath::DegreesToRadians(FMath::FRandRange(-1 * SpreadAngle, SpreadAngle));
@@ -39,10 +39,12 @@ void UGunWeapon::Shoot(AHero* Hero)
 				}
 			}
 
-			CurrentAmmo--;
 			DrawDebugLine(GetWorld(), start + (Hero->Camera->GetForwardVector() * 100), end, LineColor, false, 20, 0, 1);
 		}
-	//}
+		
+		CurrentAmmo--;
+	}
+	
 }
 
 void UGunWeapon::AddAmmo(int Ammo)

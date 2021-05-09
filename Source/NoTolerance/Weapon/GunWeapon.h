@@ -23,6 +23,9 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int CurrentAmmo = 100;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int Pellets = 1;
 
 	void AddAmmo(int Ammo);
 };

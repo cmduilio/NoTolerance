@@ -20,7 +20,7 @@ UWeapon* UWeaponComponent::FindWeapon(UWeaponItem* WeaponItem)
 	int Index = 0;
 	while(Index < Weapons.Num() && !Found)
 	{
-		Found = WeaponItem->Equals(Weapons[Index]->DisplayName);
+		Found = WeaponItem->Weapon->Equals(Weapons[Index]);
 		Index++;
 	}
 	
@@ -34,7 +34,7 @@ UWeapon* UWeaponComponent::GetCurrentWeapon()
 
 void UWeaponComponent::ChangeWeapon(int Value)
 {
-	CurrentWeapon = (CurrentWeapon + Value) % Weapons.Num();
+	CurrentWeapon = (Weapons.Num() + (CurrentWeapon + Value) % Weapons.Num()) % Weapons.Num();
 }
 
 void UWeaponComponent::AddWeapon(UWeapon* Weapon)

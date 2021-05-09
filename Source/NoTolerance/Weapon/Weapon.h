@@ -28,5 +28,7 @@ public:
 	void StopAttacking();
 	FTimerHandle ShootingTimerHandle;
 	FTimerDelegate ShootingDelegate;
+
+	bool Equals(class UWeapon* Weapon);
 	
 };
