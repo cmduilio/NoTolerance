@@ -45,8 +45,13 @@ public:
 	void MoveRight(float value);
 	void RotateYaw(float value);
 	void RotatePitch(float value);
+	
+	UFUNCTION(BlueprintCallable)
 	void NextWeapon();
+
+	UFUNCTION(BlueprintCallable)
 	void PreviousWeapon();
+	
 	void StartShooting();
 	void StopShooting();
 	void StartSprinting();

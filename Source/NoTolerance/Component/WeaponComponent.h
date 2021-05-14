@@ -32,7 +32,10 @@ public:
 	int CurrentWeapon;
 
 	UWeapon* FindWeapon(class UWeaponItem* WeaponItem);
+		
+		UFUNCTION(BlueprintCallable)
 	UWeapon* GetCurrentWeapon();
+
 	void ChangeWeapon(int Value);
 	void AddWeapon(UWeapon* Weapon);
 };

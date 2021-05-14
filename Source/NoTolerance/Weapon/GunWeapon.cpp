@@ -14,24 +14,25 @@ void UGunWeapon::Shoot(AHero* Hero)
 	{
 		for(int i = 0; i < Pellets; i++)
 		{
-			float alfaY = FMath::DegreesToRadians(FMath::FRandRange(-1 * SpreadAngle, SpreadAngle));
-			float alfaZ = FMath::DegreesToRadians(FMath::FRandRange(-1 * SpreadAngle, SpreadAngle));
-			FVector DeltaY = Hero->Camera->GetUpVector() * (FMath::Tan(alfaY) * Distance);
-			FVector DeltaZ = Hero->Camera->GetRightVector() * (FMath::Tan(alfaZ) * Distance);
+			float Angle = FMath::DegreesToRadians(FMath::FRandRange(0, 360));
+			float Radius = FMath::Tan(FMath::DegreesToRadians(SpreadAngle)) * Distance;
+
+			FVector DeltaY = Hero->Camera->GetUpVector() * Radius * FMath::Cos(Angle);
+			FVector DeltaZ = Hero->Camera->GetRightVector() * Radius * FMath::Sin(Angle);
 		
-			FVector start = Hero->Camera->GetComponentLocation();
-			FVector end = start + (Hero->Camera->GetForwardVector() * Distance) + DeltaY + DeltaZ;
+			FVector Start = Hero->Camera->GetComponentLocation();
+			FVector End = Start + (Hero->Camera->GetForwardVector() * Distance) + DeltaY + DeltaZ;
 		
-			FHitResult hitInfo;
+			FHitResult HitInfo;
 
 			FColor LineColor = FColor::Green;
-			bool hit = GetWorld()->LineTraceSingleByChannel(hitInfo, start, end, ECC_GameTraceChannel3);
-			if(hit && hitInfo.GetActor() != nullptr)
+			bool Hit = GetWorld()->LineTraceSingleByChannel(HitInfo, Start, End, ECC_GameTraceChannel3);
+			if(Hit && HitInfo.GetActor() != nullptr)
 			{
 				LineColor = FColor::Red;
-				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, hitInfo.GetActor()->GetName());
+				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, HitInfo.GetActor()->GetName());
 
-				UHealthComponent* EnemyHealthComponent = hitInfo.GetActor()->FindComponentByClass<UHealthComponent>();
+				UHealthComponent* EnemyHealthComponent = HitInfo.GetActor()->FindComponentByClass<UHealthComponent>();
 		
 				if(EnemyHealthComponent)
 				{
@@ -39,7 +40,7 @@ void UGunWeapon::Shoot(AHero* Hero)
 				}
 			}
 
-			DrawDebugLine(GetWorld(), start + (Hero->Camera->GetForwardVector() * 100), end, LineColor, false, 20, 0, 1);
+			DrawDebugLine(GetWorld(), Start + (Hero->Camera->GetForwardVector() * 100), End, LineColor, false, 20, 0, 1);
 		}
 		
 		CurrentAmmo--;
