@@ -52,6 +52,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void PreviousWeapon();
 	
+	void OnViewportSizeChange(FViewport* ViewPort, uint32 val);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void UpdateCrosshair();
+	
 	void StartShooting();
 	void StopShooting();
 	void StartSprinting();

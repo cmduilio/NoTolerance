@@ -25,6 +25,8 @@ AHero::AHero()
 
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>("InventoryComponent");
 	AddOwnedComponent(InventoryComponent);
+	
+	GEngine->GameViewport->Viewport->ViewportResizedEvent.AddUObject(this, &AHero::OnViewportSizeChange);
 }
 
 // Called when the game starts or when spawned
@@ -170,4 +172,10 @@ void AHero::ThrowItem()
 		//GetWorld()->SpawnActor<AActor>(Actor, Camera->GetComponentLocation(), Camera->GetComponentRotation(), SpawnParameters);
 		//InventoryComponent->ThrowableItem
 	}
+}
+
+void AHero::OnViewportSizeChange(FViewport* ViewPort, uint32 val)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, TEXT("changing viewport!"));
+	UpdateCrosshair();
 }
