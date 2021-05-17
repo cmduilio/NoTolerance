@@ -3,3 +3,7 @@
 
 #include "SpreadCurve.h"
 
+USpreadCurve::USpreadCurve()
+{
+	
+}

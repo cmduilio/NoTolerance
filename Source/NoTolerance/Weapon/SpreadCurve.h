@@ -13,5 +13,8 @@ UCLASS()
 class NOTOLERANCE_API USpreadCurve : public UCurveFloat
 {
 	GENERATED_BODY()
+
+public:
+	USpreadCurve();
 	
 };

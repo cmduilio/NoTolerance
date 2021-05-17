@@ -16,9 +16,10 @@ void UGunWeapon::Shoot(AHero* Hero)
 		{
 			float Angle = FMath::DegreesToRadians(FMath::FRandRange(0, 360));
 			float Radius = FMath::Tan(FMath::DegreesToRadians(SpreadAngle)) * Distance;
+			float RandomRadius = FMath::FRandRange(0, Radius);
 
-			FVector DeltaY = Hero->Camera->GetUpVector() * Radius * FMath::Cos(Angle);
-			FVector DeltaZ = Hero->Camera->GetRightVector() * Radius * FMath::Sin(Angle);
+			FVector DeltaY = Hero->Camera->GetUpVector() * RandomRadius * FMath::Cos(Angle);
+			FVector DeltaZ = Hero->Camera->GetRightVector() * RandomRadius * FMath::Sin(Angle);
 		
 			FVector Start = Hero->Camera->GetComponentLocation();
 			FVector End = Start + (Hero->Camera->GetForwardVector() * Distance) + DeltaY + DeltaZ;
