@@ -7,6 +7,7 @@
 #include "Camera/CameraComponent.h"
 #include "../Component/HealthComponent.h"
 #include "../Component/WeaponComponent.h"
+#include "Components/TimelineComponent.h"
 
 #include "Hero.generated.h"
 
@@ -34,9 +35,26 @@ public:
 	class UHealthComponent* HealthComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UInventoryComponent* InventoryComponent;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool IsSprinting;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool IsCrouching;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool IsJumping;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UTimelineComponent* CrouchingTimeline;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UCurveFloat* CrouchingCurve;
+
+	FOnTimelineFloat InterpFunction{};
+
+	float CapsuleHalfHeight;
+
+	UFUNCTION()
+	void TimelineFloatReturn(float Value);
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -63,6 +81,8 @@ public:
 	void StopSprinting();
 	void StartCrouching();
 	void StopCrouching();
+	void StartJumping();
+	
 	void UseSelectedItem();
 	void ThrowItem();
 	

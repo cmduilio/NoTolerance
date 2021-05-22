@@ -27,5 +27,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int Pellets = 1;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UCurveFloat* CurveFloat;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UMaterial* BulletHole;
+	
 	void AddAmmo(int Ammo);
+	
 };

@@ -4,8 +4,11 @@
 #include "../Component/InventoryComponent.h"
 #include "../Item/Item.h"
 #include "../Actor/ThrowableItemActor.h"
+#include "Components/CapsuleComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Components/TimelineComponent.h"
+#include "DrawDebugHelpers.h"
 
 // Sets default values
 AHero::AHero()
@@ -27,13 +30,21 @@ AHero::AHero()
 	AddOwnedComponent(InventoryComponent);
 	
 	GEngine->GameViewport->Viewport->ViewportResizedEvent.AddUObject(this, &AHero::OnViewportSizeChange);
+
+	CrouchingTimeline = CreateDefaultSubobject<UTimelineComponent>("TimelineComponent");
+	ConstructorHelpers::FObjectFinder<UCurveFloat> Curve(TEXT("CurveFloat'/Game/Blueprints/Player/CrouchingCurve.CrouchingCurve'"));
+	CrouchingCurve = Curve.Object;
+	InterpFunction.BindUFunction(this, FName("TimelineFloatReturn"));
+	CrouchingTimeline->AddInterpFloat(CrouchingCurve, InterpFunction, FName(TEXT("Alpha")));
+	CrouchingTimeline->SetLooping(false);
+
+	CapsuleHalfHeight = GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
 }
 
 // Called when the game starts or when spawned
 void AHero::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called to bind functionality to input
@@ -55,6 +66,8 @@ void AHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &AHero::StartSprinting);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &AHero::StopSprinting);
+	
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AHero::StartJumping);
 	
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &AHero::StartCrouching);
 	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &AHero::StopCrouching);
@@ -85,13 +98,11 @@ void AHero::RotatePitch(float value)
 
 void AHero::NextWeapon()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, TEXT("changing"));
 	WeaponComponent->ChangeWeapon(1);
 }
 
 void AHero::PreviousWeapon()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, TEXT("changing"));
 	WeaponComponent->ChangeWeapon(-1);
 }
 
@@ -119,13 +130,38 @@ void AHero::StopSprinting()
 
 void AHero::StartCrouching()
 {
-	Crouch();
+	CrouchingTimeline->Play();
+	IsCrouching = true;
+	//Crouch();
 }
 
 void AHero::StopCrouching()
 {
-	UnCrouch();
+	FHitResult HitInfo;
+	FVector Start = GetActorLocation();
+	FVector End = Start + FVector(0.0f, 0.0f, 100.0f);
+	bool Hit = GetWorld()->LineTraceSingleByChannel(HitInfo, Start, End, ECC_GameTraceChannel3);
+	DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 20, 0, 1);
+	if(!Hit)
+	{
+		CrouchingTimeline->Reverse();
+		IsCrouching = false;
+		//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, HitInfo.GetComponent()->GetName());
+	}
+	
+	//UnCrouch();
 }
+
+void AHero::TimelineFloatReturn(float Value)
+{
+	GetCapsuleComponent()->SetCapsuleHalfHeight(FMath::Lerp(CapsuleHalfHeight, GetCharacterMovement()->CrouchedHalfHeight, Value));
+}
+
+void AHero::StartJumping()
+{
+	Jump();
+}
+
 
 void AHero::OnDamage(float Damage)
 {
@@ -176,6 +212,5 @@ void AHero::ThrowItem()
 
 void AHero::OnViewportSizeChange(FViewport* ViewPort, uint32 val)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, TEXT("changing viewport!"));
 	UpdateCrosshair();
 }
