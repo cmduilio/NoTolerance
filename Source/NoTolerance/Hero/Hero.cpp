@@ -139,14 +139,16 @@ void AHero::StopCrouching()
 {
 	FHitResult HitInfo;
 	FVector Start = GetActorLocation();
-	FVector End = Start + FVector(0.0f, 0.0f, 100.0f);
+	FVector End = Start + FVector(0.0f, 0.0f, 200.0f);
 	bool Hit = GetWorld()->LineTraceSingleByChannel(HitInfo, Start, End, ECC_GameTraceChannel3);
 	DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 20, 0, 1);
 	if(!Hit)
 	{
 		CrouchingTimeline->Reverse();
 		IsCrouching = false;
-		//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, HitInfo.GetComponent()->GetName());
+	}else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, HitInfo.GetComponent()->GetName());
 	}
 	
 	//UnCrouch();
